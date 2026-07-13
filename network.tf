@@ -41,7 +41,7 @@ resource "azurerm_network_security_rule" "deny_internet_outbound" {
   source_port_range           = "*"
   destination_port_range      = "*"
   source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix = "Internet"
+  destination_address_prefix  = "Internet"
   resource_group_name         = azurerm_resource_group.lab.name
   network_security_group_name = azurerm_network_security_group.vms.name
 }

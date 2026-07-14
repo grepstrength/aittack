@@ -1,4 +1,4 @@
-![alt text](aittack-social-preview.png)
+![alt text](aittack.png)
 
 # AIttack!
 
@@ -19,9 +19,21 @@ I specifically chose the uncensored FableForge-AI/mythos-v2-8b as the attack VM'
 - **Access**: Accessible via Bastion host with a basic SKU, with browser-based RDP
 - **Auth**: Azure identity via `az login`. Both the subscription and admin password are stored via environment variables... no credentials in code 
 
+## Terraform Setup
+
+It's **highly** recommended that you run with at least the default `Standard_D4s_v5` VM size.
+
+To run:
+```powershell
+terraform init      # download providers, one-time setup
+terraform fmt       # format the .tf files
+terraform validate  # check syntax and references
+terraform apply     # build the lab (type yes to confirm)
+```
+
 ## Post-Deployment Setup Instructions
 
-> ⚠️ **Everything in steps 2–5 needs internet.** Both model pulls, OpenClaw, and Open WebUI all download from the web — so run them all *before* you isolate the lab in step 7. Isolate last, only after step 6 confirms everything works.
+> ⚠️ **Everything in steps 2–5 needs the internet.** Both model pulls, OpenClaw, and Open WebUI all download from the web. You will need to run them all *before* you isolate the lab in step 7. Isolate last, only after step 6 confirms everything works.
 
 ### 1. Connect to each VM 
 
@@ -121,6 +133,12 @@ From the Terraform directory within your host machine:
 terraform apply -var="network_isolated=true"
 ```
 This will add the deny-internet-outbound NSG rule. VM-to-VM traffic and Bastion access will remain, but internet ingress and egress will no longer be possible.
+
+### 8. Destroy the lab
+Of course, when done, just run:
+```powershell
+terraform destroy
+```
 
 ## License 
 MIT, because you're doing all the work. 

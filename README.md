@@ -29,7 +29,19 @@ Neither VM has a public IP, so you need to connect via Bastion host:
 
 Azure Portal > VM > Connect > Bastion, then authenticate with your admin username (`labmin` by default) and the password you supplied at deployment.
 
-The Terraform `CustomScriptExtension` already installed Ollama on both VMs during provisioning. The last thing you need to do is pull models and install OpenClaw by hand. 
+The Terraform `CustomScriptExtension` *attempts* to install Ollama on both VMs during provisioning, but note that the installer is large (~1.4 GB) and the extension runs non-interactively as SYSTEM, so it often hangs or fails silently. Expect to install Ollama by hand in most cases. 
+
+> ⚠️ **If Ollama isn't present** (`ollama --version` returns nothing), install it manually:
+
+```powershell
+Invoke-WebRequest https://ollama.com/download/OllamaSetup.exe -OutFile C:\Windows\Temp\OllamaSetup.exe
+Start-Process C:\Windows\Temp\OllamaSetup.exe -ArgumentList '/VERYSILENT' -Wait
+```
+
+When they complete, confirm installation via:
+```powershell
+ollama --version
+```
 
 ### 2. Attack VM - pull the model
 On your attack VM, in PowerShell:

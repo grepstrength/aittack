@@ -8,6 +8,10 @@ This uses two Windows Server 2022 VMs: an attack VM (with an uncensored Ollama L
 
 I specifically chose the uncensored FableForge-AI/mythos-v2-8b as the attack VM's model, but it's entirely up to you. 
 
+#### AI Disclaimer
+
+> **Note:** All code, infrastructure, and technical work here is mine. I used limited AI assistance for help writing this README, since capturing every feature and update across a large build is a lot to remember and type by hand.
+
 ## Configurations
 
 - **Cloud & IaC**: Azure provisioned with Terraform 
